@@ -28,10 +28,18 @@ Next, select the "Local Files" tab and then "Browse".
 
 ![](./img/browse.png)
 
+You should see something like this:
+
+![](./img/btdb2_before.png)
+
 ## Extracting
 
 To extract the `SoupedModFramework.zip` file, use [7Zip](https://www.7-zip.org/). Open the file using 7zip, and drag the contents into the game's folder.
 
+You should now see something like this:
+
+![](./img/btdb2_after.png)
+
 ## Launching SMF
 
-SMF comes with a `Launcher.exe` file. To launch SMF, open the launcher and select 'Launch'. The launcher will now load the game with SMF injected. NOTE: You will not be logged in to BTDB2 in game, DO NOT log in to your account (Using mods will flag your account), instead create a brand new BTDB2 account for using mods.
+SMF comes with a `Launcher.exe` file. To launch SMF, run `Launcher.exe` and select the 'Launch' button. The launcher will now load the game with SMF injected. NOTE: You will not be logged in to BTDB2 in game, **DO NOT log in to your account** (Using mods **will flag your account**), instead create a brand new BTDB2 account for using mods.

@@ -18,17 +18,11 @@ To get started, create a new folder inside of the 'mods' folder. (If there is no
 
 ```json
 {
-    "authors": [
-        "DisabledMallis",
-        "B2C",
-        "NeverGlow"
-    ],
+    "authors": ["DisabledMallis", "B2C", "NeverGlow"],
     "description": "This is an example mod that does very cool things!",
     "modid": "example",
     "name": "Example Mod",
-    "scripts": [
-        "exampleScript.js"
-    ],
+    "scripts": ["exampleScript.js"],
     "version": "1.0.0"
 }
 ```
@@ -53,7 +47,7 @@ Inside of our script, we may want to create something called a 'patcher'. A patc
 To register a patcher, simply add this into your mod's JS file:
 
 ```js
-souped.registerJsonPatcher("simulation", "tack_shooter.tower_blueprint", myPatcher);
+souped.registerJsonPatcher('simulation', 'tack_shooter.tower_blueprint', myPatcher);
 ```
 
 Now you may be wondering what `myPatcher` is. It's important to create the actual patcher itself _before_ that line in order for it to be registered. Your code may look like the following:
@@ -61,13 +55,13 @@ Now you may be wondering what `myPatcher` is. It's important to create the actua
 ```js
 function myPatcher(bundleName, fileName, data) {
     return { successful: false, data: data };
-};
+}
 
-souped.registerJsonPatcher("simulation", "tack_shooter.tower_blueprint", myPatcher);
+souped.registerJsonPatcher('simulation', 'tack_shooter.tower_blueprint', myPatcher);
 ```
 
 The next missing piece of this puzzle is the `"tack_shooter.tower_blueprint"` string. This parameter of the function is a 'selector' for which files this patcher should patch. If you were to write `".tower_blueprint"`, that would mean every single file with `".tower_blueprint"` in its file name would be patched by this patcher, effectively giving you a way to modify every single tower in the game with a single patcher.
-The `"simulation"` is the name of the bundle (.jet file) containing the `"tack_shooter.tower_blueprint"` file. If you want to search *every* bundle, you can put `"*"` instead.
+The `"simulation"` is the name of the bundle (.jet file) containing the `"tack_shooter.tower_blueprint"` file. If you want to search _every_ bundle, you can put `"*"` instead.
 
 But what is a "tower_blueprint" file?
 
@@ -79,7 +73,7 @@ When you launch BTDB2 with SMF, it will create a 'dump' folder. Inside of this f
 
 Now that we have a "tower_blueprint" file we want to edit, we can modify it in our script. Lets say we want to change the 'range' variable of the JSON
 
-tack_shooter.tower_blueprint example:
+`tack_shooter.tower_blueprint` example:
 
 ```json
 {
@@ -102,33 +96,33 @@ Our script:
 ```js
 function myPatcher(bundleName, fileName, data) {
     //Get the variables
-    var tackVars = data["variables"];
+    var tackVars = data['variables'];
     //Loop through the variables to find the 'range' variable
-    for(var i = 0; i < tackVars.length; i++) {
+    for (var i = 0; i < tackVars.length; i++) {
         //Get the current variable
         var currentVar = tackVars[i];
         //Check if it is the range variable
-        if(currentVar["key"] == "range") {
+        if (currentVar['key'] == 'range') {
             //Get the variable object
-            var rangeVar = currentVar["variable"];
+            var rangeVar = currentVar['variable'];
             //Set its value
-            rangeVar["value"] = 99;
+            rangeVar['value'] = 99;
             //Store the variable back into the current var
-            currentVar["variable"] = rangeVar;
+            currentVar['variable'] = rangeVar;
         }
         //Store the current var back into tackVars
         tackVars[i] = currentVar;
     }
     //Store tackVars back into the data
-    data["variables"] = tackVars;
+    data['variables'] = tackVars;
 
     //Return that it was successful, as well as the modified data
     return { successful: true, data: data };
-};
+}
 
-souped.registerJsonPatcher("simulation", "tack_shooter.tower_blueprint", myPatcher);
+souped.registerJsonPatcher('simulation', 'tack_shooter.tower_blueprint', myPatcher);
 ```
 
 ### Sharing your mod
 
-Now that you have created a mod, you may want to share it with others. You will need [7-zip](https://www.7-zip.org/) to do this part of the tutorial. The best way to do this is to distribute them as ".smf" files. To create a .smf file for your mod, select all of the files inside of your mod folder and then right-click → 7-zip → Add to archive... Select 'tar' for the "Archive format". Rename the file to replace '.tar' with '.smf' (this tells SMF that the file _is_ a tar file containing a valid 'meta.json' file). You now have a shareable mod file!
+Now that you have created a mod, you may want to share it with others. You will need [7-zip](https://www.7-zip.org/) to do this part of the tutorial. The best way to do this is to distribute them as `.smf` files. To create a `.smf` file for your mod, select all of the files inside of your mod folder and then right-click → 7-zip → Add to archive... Select 'tar' for the "Archive format". Rename the file to replace `.tar` with `.smf` (this tells SMF that the file _is_ a tar file containing a valid `meta.json` file). You now have a shareable mod file!
